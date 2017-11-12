@@ -35,7 +35,7 @@ public class TextDatabase {
      * Returns an ArrayList<String> of all usernames in the database.
      * Good for a sanity check.
      */
-    public static ArrayList<String> getAllUsernames()
+    public synchronized static ArrayList<String> getAllUsernames()
     {
         ArrayList<String> allRows = getFileContents(userDB);        
         ArrayList<String> result = new ArrayList<String>();
@@ -51,7 +51,7 @@ public class TextDatabase {
     /*
      * Returns true if the username already exists in the database
      */
-    private static Boolean checkForExistingUser(String username)
+    public synchronized static Boolean checkForExistingUser(String username)
     {
         ArrayList<String> allUsers = getFileContents(userDB);
         
@@ -71,7 +71,7 @@ public class TextDatabase {
      * 
      * Throws Exception with message "Username already exists" 
      */
-    public static void insertRowIntoUsers(String username, String hostname, String connectionSpeed) throws Exception
+    public synchronized static void insertRowIntoUsers(String username, String hostname, String connectionSpeed) throws Exception
     {
         if (checkForExistingUser(username))
             throw new Exception("Username already exists");
@@ -93,7 +93,7 @@ public class TextDatabase {
      * 
      * Throws Exception with message "Username does not exist" 
      */
-    public static void insertRowIntoFiles(String username, String path) throws Exception
+    public synchronized static void insertRowIntoFiles(String username, String path) throws Exception
     {
         if (!checkForExistingUser(username))
             throw new Exception("Username does not exist");
@@ -127,7 +127,7 @@ public class TextDatabase {
      *  
      *  Quietly fails if that username is not in the users table.
      */
-    public static void deleteSingleUsersFilesAndKeywords(String username)
+    public synchronized static void deleteSingleUsersFilesAndKeywords(String username)
     {
         if (!checkForExistingUser(username))
             return;
@@ -150,7 +150,7 @@ public class TextDatabase {
      * Removes the username from the users table
      *  in addition to all related files
      */
-    public static void deleteUserCascade(String username)
+    public synchronized static void deleteUserCascade(String username)
     {
         if (!checkForExistingUser(username))
             return;
@@ -184,7 +184,7 @@ public class TextDatabase {
     /*
      * Removes a file from the files table
      */
-    public static void deleteFileCascade(String username, String path)
+    public synchronized static void deleteFileCascade(String username, String path)
     {
         ArrayList<String> result = getFileContents(fileDB);
         for (int i=0; i<result.size(); i++)
@@ -203,7 +203,7 @@ public class TextDatabase {
      * Returns an ArrayList<String> of "username,path"s
      *  for files with requisite keywords
      */
-    public static ArrayList<String> searchByKeyword(String keyword)
+    public synchronized static ArrayList<String> searchByKeyword(String keyword)
     {
         ArrayList<String> allFiles = getFileContents(fileDB);
         ArrayList<String> result = new ArrayList<String>();
@@ -222,7 +222,7 @@ public class TextDatabase {
     /*
      * Replaces the data in a table completely with new data
      */
-    public static void updateTable(String filename, ArrayList<String> data)
+    public synchronized static void updateTable(String filename, ArrayList<String> data)
     {
         try(PrintWriter out = new PrintWriter(
                 new BufferedWriter(
@@ -240,7 +240,7 @@ public class TextDatabase {
     /*
      * Helper method that loads the database from a file into an ArrayList<String>
      */
-    public static ArrayList<String> getFileContents(String fileName)
+    public synchronized static ArrayList<String> getFileContents(String fileName)
     {
         ArrayList<String> result = new ArrayList<String>();
         
