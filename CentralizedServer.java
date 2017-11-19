@@ -190,6 +190,8 @@ class ClientHandler extends Thread
                 System.out.println("Search for " + keyword + " just initiated");
                 
                 ArrayList<String> results = TextDatabase.searchByKeyword(keyword);
+				
+				System.out.println("Search complete.\n" + results.size() + " results found.");
                 
                 try {
                     // get our data connection going

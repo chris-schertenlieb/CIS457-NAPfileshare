@@ -1,3 +1,5 @@
 calkinda,cis.gvsu.edu,10 MBps
 coolDude24,cis.gvsu.edu,10 MBps
 hotChick69,mydomian.gov,1 TBps
+ellieisacat,192.168.1.135,5Mbps
+chrishasabeard,192.168.1.135,5Mbps
