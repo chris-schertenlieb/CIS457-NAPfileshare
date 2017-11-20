@@ -277,10 +277,19 @@ public class TextDatabase {
         return result;
     }
 
+    /* Method written to fetch a user's serverName (ip address) 
+     * 
+     */
     public synchronized static String getUserServer(String targetUser){
+	// create an array to hold the userDB
       ArrayList<String> users = getFileContents(userDB);
+      // a string array that will hold the 3 parts of our user
       String[] tempUsers = new String[3];
       String temp = "";
+      // for each line in the usersDB, we split on a , which
+      // breaks each line into name and ip address separately 
+      // check if the name is the same as the one passed into this method
+      // if it is, then we grab the ip address and return it out
       for(int i=0; i<users.size(); i++){
         temp = users.get(i);
         tempUsers = temp.split(",");

@@ -6,3 +6,5 @@ chrishasabeard,192.168.1.135,5Mbps
 batmanxx,localhost,5mbps
 snailBOT,snailGOV.gov,1kbps
 bartSimpson,localhost,5mbps
+blanketBob,localhost,16mbps
+coffeeMonster,localhost,16mbps

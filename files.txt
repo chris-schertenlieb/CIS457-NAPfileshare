@@ -26,3 +26,10 @@ bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\Host.class,localhos
 bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\Host.java,localhost
 bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\HostServer.class,localhost
 bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\HostServer.java,localhost
+blanketBob,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\CLASSIFIED_DOCUMENT.txt,localhost
+blanketBob,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\ClientHandler.class,localhost
+blanketBob,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\COCACOLA-SECRET-RECIPE.txt,localhost
+blanketBob,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\Host.class,localhost
+blanketBob,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\Host.java,localhost
+blanketBob,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\HostServer.class,localhost
+blanketBob,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\HostServer.java,localhost
