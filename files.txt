@@ -11,3 +11,18 @@ chrishasabeard,C:\Users\test\Desktop\p2p\CIS457-NAPfileshare-master\HostFiles\.\
 chrishasabeard,C:\Users\test\Desktop\p2p\CIS457-NAPfileshare-master\HostFiles\.\Host.java
 chrishasabeard,C:\Users\test\Desktop\p2p\CIS457-NAPfileshare-master\HostFiles\.\ILikeCats.txt
 chrishasabeard,C:\Users\test\Desktop\p2p\CIS457-NAPfileshare-master\HostFiles\.\Sneaky Snitch.mp3
+batmanxx,D:\Repositories\CIS457-NAPfileshare\HostFiles\.\Host.class
+batmanxx,D:\Repositories\CIS457-NAPfileshare\HostFiles\.\Host.java
+batmanxx,D:\Repositories\CIS457-NAPfileshare\HostFiles\.\ILikeCats.txt
+batmanxx,D:\Repositories\CIS457-NAPfileshare\HostFiles\.\Sneaky Snitch.mp3
+snailBOT,D:\Repositories\CIS457-NAPfileshare\HostFiles\.\Host.class
+snailBOT,D:\Repositories\CIS457-NAPfileshare\HostFiles\.\Host.java
+snailBOT,D:\Repositories\CIS457-NAPfileshare\HostFiles\.\ILikeCats.txt
+snailBOT,D:\Repositories\CIS457-NAPfileshare\HostFiles\.\Sneaky Snitch.mp3
+bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\CLASSIFIED_DOCUMENT.txt,localhost
+bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\ClientHandler.class,localhost
+bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\COCACOLA-SECRET-RECIPE.txt,localhost
+bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\Host.class,localhost
+bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\Host.java,localhost
+bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\HostServer.class,localhost
+bartSimpson,D:\Repositories\CIS457-NAPfileshare\HostFiles2\.\HostServer.java,localhost
