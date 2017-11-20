@@ -20,7 +20,7 @@ public class CentralizedServer {
             /* This is the main socket that listens for incoming connections.
              * Once a "control connection" is established between a client,
              * a thread is spun off to handle all further communication with
-             * that client. This socket only handles the first incoming 
+             * that client. This socket only handles the first incoming
              * connection request. */
             welcomeSocket = new ServerSocket(PORT);
         }
@@ -59,7 +59,7 @@ class ClientHandler extends Thread
 
         try
         {
-            /* get input/output streams from the client socket 
+            /* get input/output streams from the client socket
              * These represent the i/o for the persistent command connection */
             input = new Scanner(client.getInputStream());
             output = new PrintWriter(client.getOutputStream(), true);
@@ -80,17 +80,17 @@ class ClientHandler extends Thread
             received = input.nextLine();  //this line blocks until message is received
             StringTokenizer tokens = new StringTokenizer(received);
             command = tokens.nextToken();
-            
+
             if(command.equals("REGISTER"))
             {
                 /* Initialize a new user into the system
                  * Command should be in the form REGISTER username hostname connectionSpeed */
-                
+
                 /* parse the username, connection speed, and hostname from incoming message */
                 String username = tokens.nextToken();
                 String hostname = tokens.nextToken();
                 String connectionSpeed = tokens.nextToken();
-                
+
                 /* account for connection speeds with spaces?
                  * TODO: remove if unnecessary
                  */
@@ -112,10 +112,10 @@ class ClientHandler extends Thread
                     continue;
                 }
 
-                
-                /* Send confirmation message */ 
+
+                /* Send confirmation message */
                 output.println("Username accepted. Initiate transfer of filelist.");
-                
+
                 /* Wait for STOR command (taken from previous project)
                  * Will be in the form STOR portNum.
                  * Since both ArrayList and String are serializable,
@@ -142,15 +142,15 @@ class ClientHandler extends Thread
                     Socket dataSocket = new Socket(client.getInetAddress(), dataConnPort);
 
                     ObjectInputStream inputStream = new ObjectInputStream(dataSocket.getInputStream());
-                    
+
                     ArrayList<String> fileList = (ArrayList<String>) inputStream.readObject();
 
                     /* Store user file information in file database */
                     for(String file: fileList)
                     {
-                        TextDatabase.insertRowIntoFiles(username, file);
+                        TextDatabase.insertRowIntoFiles(username, file, TextDatabase.getUserServer(username));
                     }
-                    
+
                     dataSocket.close();
                 }
                 catch (Exception e) {
@@ -162,43 +162,43 @@ class ClientHandler extends Thread
                 System.out.println("User registration successful");
                 output.println("User registration successful");
             }
-            
+
             if(command.equals("UNREGISTER"))
             {
                 /* Command will be of the form UNREGISTER username */
-                /* Note: currently, any user can UNREGISTER another user 
+                /* Note: currently, any user can UNREGISTER another user
                  *  as long as they know the username.
                  *  We'd need to force a login
                  *  or pair IP addresses with usernames
                  *  to keep this safe from malicious users */
 
                 String username = tokens.nextToken();
-                
+
                 TextDatabase.deleteUserCascade(username);
-                
+
                 output.println("Operation complete.");
                 System.out.println("Operation complete.");
             }
-    
+
             if(command.equals("SEARCH"))
             {
                 /* Command will be of the form SEARCH portNum keyword */
                 int dataConnPort = Integer.parseInt(tokens.nextToken());
                 String keyword = tokens.nextToken();
-                
+
                 /* DEBUG */
                 System.out.println("Search for " + keyword + " just initiated");
-                
+
                 ArrayList<String> results = TextDatabase.searchByKeyword(keyword);
-				
-				System.out.println("Search complete.\n" + results.size() + " results found.");
-                
+
+				            System.out.println("Search complete.\n" + results.size() + " results found. \n");
+
                 try {
                     // get our data connection going
                     Socket dataSocket = new Socket(client.getInetAddress(), dataConnPort);
-                    
+
                     ObjectOutputStream outputStream = new ObjectOutputStream(dataSocket.getOutputStream());
-                    
+
                     outputStream.writeObject(results);
 
                     dataSocket.close();
@@ -208,7 +208,7 @@ class ClientHandler extends Thread
                 }
             }
         } while (!command.equals("QUIT"));
-        
+
         /* client has sent command QUIT */
         try
         {
@@ -223,5 +223,5 @@ class ClientHandler extends Thread
             System.out.println("Unable to disconnect!");
         }
     }
-    
+
 }
