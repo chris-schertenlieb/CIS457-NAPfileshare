@@ -1,0 +1,14 @@
+shelbyk,C:\Users\test\Desktop\project2\HostFiles\.\ClientHandler.class,localhost
+shelbyk,C:\Users\test\Desktop\project2\HostFiles\.\Host.class,localhost
+shelbyk,C:\Users\test\Desktop\project2\HostFiles\.\Host.java,localhost
+shelbyk,C:\Users\test\Desktop\project2\HostFiles\.\HostServer.class,localhost
+shelbyk,C:\Users\test\Desktop\project2\HostFiles\.\HostServer.java,localhost
+shelbyk,C:\Users\test\Desktop\project2\HostFiles\.\ILikeCats.txt,localhost
+shelbyk,C:\Users\test\Desktop\project2\HostFiles\.\Sneaky Snitch.mp3,localhost
+chriss,C:\Users\test\Desktop\project2\HostFiles2\.\CLASSIFIED_DOCUMENT.txt,localhost
+chriss,C:\Users\test\Desktop\project2\HostFiles2\.\ClientHandler.class,localhost
+chriss,C:\Users\test\Desktop\project2\HostFiles2\.\COCACOLA-SECRET-RECIPE.txt,localhost
+chriss,C:\Users\test\Desktop\project2\HostFiles2\.\Host2.class,localhost
+chriss,C:\Users\test\Desktop\project2\HostFiles2\.\Host2.java,localhost
+chriss,C:\Users\test\Desktop\project2\HostFiles2\.\HostServer2.class,localhost
+chriss,C:\Users\test\Desktop\project2\HostFiles2\.\HostServer2.java,localhost

@@ -1,11 +1,12 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.nio.file.*;
 
 
 public class HostServer {
   private static ServerSocket welcomeSocket;
-  private static final int PORT = 1232;
+  private static final int PORT = 1233;
 
       public static void main(String[] args) throws IOException{
         try
@@ -69,13 +70,15 @@ public class HostServer {
            received = input.nextLine();  //this line blocks until message is received
            StringTokenizer tokens = new StringTokenizer(received);
            command = tokens.nextToken();
+
            do{
            if(command.equals("GET"))
             {
                 /* will be of the form RETR <filename> <port> */
                 /* send <filename> to client address at <port> */
-
+				
                 String fileName = tokens.nextToken();
+				System.out.println(fileName);
 
                 try {
                     dataConnPort = Integer.parseInt(tokens.nextToken());
@@ -86,8 +89,10 @@ public class HostServer {
                 }
 
                 /* If the file lives where this class lives, the directory will be on the classpath */
-                URL path = ClassLoader.getSystemResource("myFile.txt");
-                if(path == null) {
+                Path path = Paths.get(fileName);
+				System.out.println(path);
+                if(Files.exists(path)) {
+					System.out.println("test");
                     /* File was not found. Send error message, repeat while loop */
                     output.println(fileName + " cound not be found. Please specify a different file.");
                     continue;

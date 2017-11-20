@@ -3,9 +3,9 @@ import java.net.*;
 import java.util.*;
 
 
-public class HostServer {
+public class HostServer2 {
   private static ServerSocket welcomeSocket;
-  private static final int PORT = 1233;
+  private static final int PORT = 1232;
 
       public static void main(String[] args) throws IOException{
         try
@@ -69,18 +69,14 @@ public class HostServer {
            received = input.nextLine();  //this line blocks until message is received
            StringTokenizer tokens = new StringTokenizer(received);
            command = tokens.nextToken();
-
-           // GET is basically the only thing this server does
            do{
            if(command.equals("GET"))
             {
                 /* will be of the form RETR <filename> <port> */
                 /* send <filename> to client address at <port> */
 
-                // get the file the other host wants
                 String fileName = tokens.nextToken();
 
-                // get the data conn port of the other host
                 try {
                     dataConnPort = Integer.parseInt(tokens.nextToken());
                 } catch (NumberFormatException e1) {
@@ -88,8 +84,6 @@ public class HostServer {
                     output.println("Invalid port number. Command must be in the form RETR (string)filename (int)portNumber");
                     continue;
                 }
-
-                // get the URL path of the file they are looking for
 
                 /* If the file lives where this class lives, the directory will be on the classpath */
                 URL path = ClassLoader.getSystemResource("myFile.txt");

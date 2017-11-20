@@ -1,3 +1,0 @@
-calkinda,cis.gvsu.edu,10 MBps
-coolDude24,cis.gvsu.edu,10 MBps
-hotChick69,mydomian.gov,1 TBps
