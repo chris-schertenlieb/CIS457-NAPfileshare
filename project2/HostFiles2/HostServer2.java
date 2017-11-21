@@ -1,11 +1,12 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.nio.file.*;
 
 
 public class HostServer2 {
   private static ServerSocket welcomeSocket;
-  private static final int PORT = 1232;
+  private static final int PORT = 1332;
 
       public static void main(String[] args) throws IOException{
         try
@@ -69,6 +70,7 @@ public class HostServer2 {
            received = input.nextLine();  //this line blocks until message is received
            StringTokenizer tokens = new StringTokenizer(received);
            command = tokens.nextToken();
+
            do{
            if(command.equals("GET"))
             {
@@ -86,8 +88,8 @@ public class HostServer2 {
                 }
 
                 /* If the file lives where this class lives, the directory will be on the classpath */
-                URL path = ClassLoader.getSystemResource("myFile.txt");
-                if(path == null) {
+                File file = new File(fileName);
+                if(!file.exists()) {
                     /* File was not found. Send error message, repeat while loop */
                     output.println(fileName + " cound not be found. Please specify a different file.");
                     continue;
@@ -117,16 +119,19 @@ public class HostServer2 {
                     dataOutput.close();
                     fileIn.close();
                     dataSocket.close();
+					
+					command = "";
 
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+					continue;
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+					continue;
                 }
             }
           }while(true);
-
         }
   }

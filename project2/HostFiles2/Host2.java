@@ -100,7 +100,7 @@ public class Host2 {
                         ObjectOutputStream outputStream = new ObjectOutputStream(dataSocket.getOutputStream());
 
                         /* get list of all files in current directory */
-                        File folder = new File("");  //the folder for this process
+                        File folder = new File(".");  //the folder for this process
                         File[] listOfFiles = folder.listFiles();  //this object contains all files AND folders in the current directory
 
                         ArrayList<String> results = new ArrayList<String>();
@@ -108,7 +108,7 @@ public class Host2 {
                         /* Iterate through and add the path to the list only if the file object is indeed a file (not a directory) */
                         for (File file : listOfFiles) {
                             if (file.isFile()) {
-                                results.add(file.getAbsolutePath());
+                                results.add(file.getName());
                             }
                         }
 

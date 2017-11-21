@@ -76,9 +76,8 @@ public class HostServer {
             {
                 /* will be of the form RETR <filename> <port> */
                 /* send <filename> to client address at <port> */
-				
+
                 String fileName = tokens.nextToken();
-				System.out.println(fileName);
 
                 try {
                     dataConnPort = Integer.parseInt(tokens.nextToken());
@@ -89,10 +88,8 @@ public class HostServer {
                 }
 
                 /* If the file lives where this class lives, the directory will be on the classpath */
-                Path path = Paths.get(fileName);
-				System.out.println(path);
-                if(Files.exists(path)) {
-					System.out.println("test");
+                File file = new File(fileName);
+                if(!file.exists()) {
                     /* File was not found. Send error message, repeat while loop */
                     output.println(fileName + " cound not be found. Please specify a different file.");
                     continue;
@@ -122,16 +119,19 @@ public class HostServer {
                     dataOutput.close();
                     fileIn.close();
                     dataSocket.close();
+					
+					command = "";
 
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+					continue;
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+					continue;
                 }
             }
           }while(true);
-
         }
   }

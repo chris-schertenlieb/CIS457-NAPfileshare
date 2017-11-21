@@ -108,7 +108,7 @@ public class Host {
                         /* Iterate through and add the path to the list only if the file object is indeed a file (not a directory) */
                         for (File file : listOfFiles) {
                             if (file.isFile()) {
-                                results.add(file.getAbsolutePath());
+                                results.add(file.getName());
                             }
                         }
 
@@ -175,7 +175,7 @@ public class Host {
                   //String targetName = TextDatabase.getUserServer(searchCreds[0])
                   String targetServer = searchCreds[2];
                   System.out.println("Connecting to file location...");
-                  Socket connSocket = new Socket(targetServer, 1233);
+                  Socket connSocket = new Socket(targetServer, 1332);
 
                   /* get input stream from server to receive response */
                   /* get output stream from server to send request */

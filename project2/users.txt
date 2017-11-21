@@ -1,2 +1,2 @@
+nateb,localhost,5Mbps
 shelbyk,localhost,5Mbps
-chriss,localhost,5Mbps
