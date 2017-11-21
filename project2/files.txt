@@ -1,0 +1,14 @@
+nateb,ClientHandler.class,localhost
+nateb,Host.class,localhost
+nateb,Host.java,localhost
+nateb,HostServer.class,localhost
+nateb,HostServer.java,localhost
+nateb,ILikeCats.txt,localhost
+nateb,Sneaky Snitch.mp3,localhost
+shelbyk,CLASSIFIED_DOCUMENT.txt,localhost
+shelbyk,ClientHandler.class,localhost
+shelbyk,COCACOLA-SECRET-RECIPE.txt,localhost
+shelbyk,Host2.class,localhost
+shelbyk,Host2.java,localhost
+shelbyk,HostServer2.class,localhost
+shelbyk,HostServer2.java,localhost
