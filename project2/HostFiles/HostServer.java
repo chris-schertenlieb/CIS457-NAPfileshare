@@ -6,7 +6,7 @@ import java.nio.file.*;
 
 public class HostServer {
   private static ServerSocket welcomeSocket;
-  private static final int PORT = 1233;
+  private static final int PORT = 1235;
 
       public static void main(String[] args) throws IOException{
         try

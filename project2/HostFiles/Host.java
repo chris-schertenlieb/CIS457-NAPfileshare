@@ -96,10 +96,6 @@ public class Host {
                     ServerSocket welcomeSocket = new ServerSocket(PORT);
                     Socket dataSocket = welcomeSocket.accept();
 
-<<<<<<< HEAD:HostFiles/Host.java
-
-=======
->>>>>>> 3dae810a0a91291c44456f3e4b3c323d80fb7bf5:project2/HostFiles/Host.java
                     try {
                         ObjectOutputStream outputStream = new ObjectOutputStream(dataSocket.getOutputStream());
 
@@ -128,12 +124,9 @@ public class Host {
                     response = serverInput.nextLine();
 
                     System.out.println(response);
-<<<<<<< HEAD:HostFiles/Host.java
-=======
 					
 					dataSocket.close();
 					welcomeSocket.close();
->>>>>>> 3dae810a0a91291c44456f3e4b3c323d80fb7bf5:project2/HostFiles/Host.java
                 }
 
                 if(command.equals("UNREGISTER"))
@@ -145,30 +138,7 @@ public class Host {
 
                 if(command.equals("SEARCH"))
                 {
-                    // get the word we want to search for
                     String keyword = tokens.nextToken();
-<<<<<<< HEAD:HostFiles/Host.java
-                    // send necessary info over to the server
-        					  serverOutput.println("SEARCH " + PORT + " " + keyword);
-
-                    // establish our connection socket and wait for dataSocket response
-          					ServerSocket welcomeSocket = new ServerSocket(PORT);
-          					Socket dataSocket = welcomeSocket.accept();
-
-                    // make an object stream attached to the dataSocket that will eventually take in an arraylist of search results
-          					ObjectInputStream input = new ObjectInputStream(dataSocket.getInputStream());
-
-          					try{
-                      // spacing
-                      System.out.print("\n");
-                      // get search results from data connection
-          						ArrayList<String> results = (ArrayList<String>)input.readObject();
-
-                      // we have a global variable called "latestSearch" that holds the arraylist of your most recent search
-                      latestSearch = results;
-
-                      // print out our results
-=======
 
         					  serverOutput.println("SEARCH " + PORT + " " + keyword);
 
@@ -180,7 +150,6 @@ public class Host {
                       System.out.print("\n");
           						ArrayList<String> results = (ArrayList<String>)input.readObject();
                       latestSearch = results;
->>>>>>> 3dae810a0a91291c44456f3e4b3c323d80fb7bf5:project2/HostFiles/Host.java
                       System.out.println(results.size() + " results found: ");
           						for(int i=0; i<results.size(); i++){
                         System.out.println(results.get(i));
@@ -188,70 +157,31 @@ public class Host {
           					}catch(Exception e){
           						System.out.println("Unable to read search results!");
           					}
-<<<<<<< HEAD:HostFiles/Host.java
-                    // close our sockets
-=======
->>>>>>> 3dae810a0a91291c44456f3e4b3c323d80fb7bf5:project2/HostFiles/Host.java
                     System.out.print("\n");
                     input.close();
                     dataSocket.close();
                     welcomeSocket.close();
                 }
-<<<<<<< HEAD:HostFiles/Host.java
-
-                /*
-                  will be done in the form "GET <int n>"
-                  attempts to "GET" the n-th search result from your most recent search
-                */
                 if(command.equals("GET")){
-                  // if you haven't done any searches, then you can't get any files
-=======
-                if(command.equals("GET")){
->>>>>>> 3dae810a0a91291c44456f3e4b3c323d80fb7bf5:project2/HostFiles/Host.java
                   if(latestSearch.isEmpty()){
                     System.out.println("No search results found");
                     continue;
                   }
-<<<<<<< HEAD:HostFiles/Host.java
-
-                  // parses the number they want from the search
-                  int searchNum = Integer.parseInt(tokens.nextToken());
-                  // make an array to hold necessary info
-                  String[] searchCreds = new String[3];
-                  // get latest search at <int n-1> and split it on the ",", this gives us
-                  // [0] = user name
-                  // [1] = file name/path thing
-                  // [2] = server location for this file/user
-=======
                   String targetSearch = "";
                   int searchNum = Integer.parseInt(tokens.nextToken());
                   String[] searchCreds = new String[3];
->>>>>>> 3dae810a0a91291c44456f3e4b3c323d80fb7bf5:project2/HostFiles/Host.java
                   searchCreds = latestSearch.get(searchNum-1).split(",", 3);
                   System.out.println("Getting file location...");
                   //String targetName = TextDatabase.getUserServer(searchCreds[0])
                   String targetServer = searchCreds[2];
                   System.out.println("Connecting to file location...");
-<<<<<<< HEAD
-                  Socket connSocket = new Socket(targetServer, 1332);
-=======
-<<<<<<< HEAD:HostFiles/Host.java
-                  // establish connection socket for this tcp connection
-=======
->>>>>>> 3dae810a0a91291c44456f3e4b3c323d80fb7bf5:project2/HostFiles/Host.java
-                  Socket connSocket = new Socket(targetServer, 1233);
->>>>>>> origin/getProbs
+                  Socket connSocket = new Socket(targetServer, 1232);
 
                   /* get input stream from server to receive response */
                   /* get output stream from server to send request */
                   serverInput = new Scanner(connSocket.getInputStream());
                   serverOutput = new PrintWriter(connSocket.getOutputStream(),true);
 
-<<<<<<< HEAD:HostFiles/Host.java
-                  // now basically perform RETR from first project
-                  // send the command to the server, the file name, and our data conn port 
-=======
->>>>>>> 3dae810a0a91291c44456f3e4b3c323d80fb7bf5:project2/HostFiles/Host.java
                   serverOutput.println("GET " + searchCreds[1] + " " + PORT);
 
                   ServerSocket welcomeSocket = new ServerSocket(PORT);
