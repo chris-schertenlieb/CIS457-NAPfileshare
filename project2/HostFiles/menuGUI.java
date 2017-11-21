@@ -90,7 +90,7 @@ public class menuGUI {
 					textArea.append(">>>" + message);
 					int i = 0;
 					while(response.get(i) != null){
-						textArea.append(response);
+						textArea.append(response.get(i));
 						i++;
 					}
 				}
@@ -166,7 +166,7 @@ public class menuGUI {
 					textArea.append(">>>" + message + "\n");
 					int i = 0;
 					while(response.get(i) != null){
-						textArea.append(response);
+						textArea.append(response.get(i));
 						i++;
 					}
 				}
@@ -202,7 +202,7 @@ public class menuGUI {
 					textArea.append(">>>" + message + "\n");
 					int i = 0;
 					while(response.get(i) != null){
-						textArea.append(response);
+						textArea.append(response.get(i));
 						i++;
 					}				}
 				catch(Exception e){
@@ -256,7 +256,7 @@ public class menuGUI {
 						response = host.getResponse();
 						int i = 0;
 						while(response.get(i) != null){
-							textArea.append(response);
+							textArea.append(response.get(i));
 							i++;
 						}
 						command.setText("");
@@ -294,7 +294,7 @@ public class menuGUI {
 					textArea.append(">>>" + message + "\n");
 					int i = 0;
 					while(response.get(i) != null){
-						textArea.append(response);
+						textArea.append(response.get(i));
 						i++;
 					}
 				}

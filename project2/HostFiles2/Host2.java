@@ -54,7 +54,7 @@ public class Host2 {
                     /* check that no connection already exists with a server */
                     if (server != null)
                     {
-                    	response.add("Connection already exablished")
+                    	response.add("Connection already exablished");
                     }
 
                     else{
