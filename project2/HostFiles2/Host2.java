@@ -124,35 +124,47 @@ public class Host2 {
                     response = serverInput.nextLine();
 
                     System.out.println(response);
-					
+
 					dataSocket.close();
 					welcomeSocket.close();
                 }
-
+                /* done in the form UNREGISTER <username> */
                 if(command.equals("UNREGISTER"))
                 {
+                    // get the username passed
                     String username = tokens.nextToken();
-
+                    // ask the server to unregister this username
 					          serverOutput.println("UNREGISTER " + username);
                 }
 
+                /* done in the form SEARCH <keyword> */
                 if(command.equals("SEARCH"))
                 {
+                    // get the keyword passed
                     String keyword = tokens.nextToken();
 
+                    // tell the server what we want to search for
         					  serverOutput.println("SEARCH " + PORT + " " + keyword);
 
+                    // set up our dataSocket
           					ServerSocket welcomeSocket = new ServerSocket(PORT);
           					Socket dataSocket = welcomeSocket.accept();
 
+                    // make an object stream that will receive the arraylist of results
           					ObjectInputStream input = new ObjectInputStream(dataSocket.getInputStream());
           					try{
                       System.out.print("\n");
+                      // read in the results of the search
           						ArrayList<String> results = (ArrayList<String>)input.readObject();
+                      // update our global search variable
                       latestSearch = results;
+                      // numbering integer helps us format the output
+                      int numbering = 0;
+                      // print out all our results and stuff
                       System.out.println(results.size() + " results found: ");
           						for(int i=0; i<results.size(); i++){
-                        System.out.println(results.get(i));
+                        numbering=i+1;
+                        System.out.println(numbering + results.get(i));
                       }
           					}catch(Exception e){
           						System.out.println("Unable to read search results!");
@@ -162,19 +174,39 @@ public class Host2 {
                     dataSocket.close();
                     welcomeSocket.close();
                 }
+
+                /*
+                   done in form GET <integer>
+                   where the integer is the number from the previous search.
+                   i.e. GET 1 would get the first result from the most recent search
+                */
                 if(command.equals("GET")){
+                    // check that we have done at least one search before
                   if(latestSearch.isEmpty()){
                     System.out.println("No search results found");
                     continue;
                   }
-                  String targetSearch = "";
+                  // get the number the client wants
                   int searchNum = Integer.parseInt(tokens.nextToken());
+                  System.out.println("Getting " + latestSearch.get(searchNum));
+
+                  /*
+                    initiate a search array and then
+                    break the search result the client wants into 3 parts
+                    and put them into searchCreds
+                    searchCreds[0] = owner of files
+                    searchCreds[1] = name of files
+                    searchCreds[2] = location of file
+                  */
                   String[] searchCreds = new String[3];
                   searchCreds = latestSearch.get(searchNum-1).split(",", 3);
+
+                  // get the file location
                   System.out.println("Getting file location...");
-                  //String targetName = TextDatabase.getUserServer(searchCreds[0])
                   String targetServer = searchCreds[2];
+                  // make a connection with the location of the file
                   System.out.println("Connecting to file location...");
+                  //FIXME: this port shouldn't be hardcoded
                   Socket connSocket = new Socket(targetServer, 1235);
 
                   /* get input stream from server to receive response */
@@ -182,11 +214,15 @@ public class Host2 {
                   serverInput = new Scanner(connSocket.getInputStream());
                   serverOutput = new PrintWriter(connSocket.getOutputStream(),true);
 
+                  // tell the server that we want to get a file, and give it the filename
                   serverOutput.println("GET " + searchCreds[1] + " " + PORT);
 
+                  // set up the data socket with the server that has the file we want
                   ServerSocket welcomeSocket = new ServerSocket(PORT);
                   Socket dataSocket = welcomeSocket.accept();
 
+
+                  // the rest of this is essentially just client side RETR from the first project
                   byte [] fileContents = new byte[1000000];
 
                   File file = new File("./" + searchCreds[1]);

@@ -83,6 +83,7 @@ class ClientHandler extends Thread
 
             if(command.equals("REGISTER"))
             {
+              System.out.println("Registering new client...");
                 /* Initialize a new user into the system
                  * Command should be in the form REGISTER username hostname connectionSpeed */
 
@@ -114,7 +115,7 @@ class ClientHandler extends Thread
 
 
                 /* Send confirmation message */
-                output.println("Username accepted. Initiate transfer of filelist.");
+                output.println("Username accepted. Initiating transfer of filelist...");
 
                 /* Wait for STOR command (taken from previous project)
                  * Will be in the form STOR portNum.
@@ -150,6 +151,7 @@ class ClientHandler extends Thread
                     {
                         TextDatabase.insertRowIntoFiles(username, file, TextDatabase.getUserServer(username));
                     }
+                    System.out.println("File list uploaded...")
 
                     dataSocket.close();
                 }
@@ -159,7 +161,7 @@ class ClientHandler extends Thread
                     TextDatabase.deleteUserCascade(username);
                 }
 
-                System.out.println("User registration successful");
+                System.out.println("User registration complete!\n");
                 output.println("User registration successful");
             }
 
@@ -171,13 +173,14 @@ class ClientHandler extends Thread
                  *  We'd need to force a login
                  *  or pair IP addresses with usernames
                  *  to keep this safe from malicious users */
+                 System.out.println("Unregistering client...")
 
                 String username = tokens.nextToken();
 
                 TextDatabase.deleteUserCascade(username);
 
                 output.println("Operation complete.");
-                System.out.println("Operation complete.");
+                System.out.println("Removal complete!\n");
             }
 
             if(command.equals("SEARCH"))

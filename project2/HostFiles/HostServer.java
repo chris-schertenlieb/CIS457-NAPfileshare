@@ -26,8 +26,10 @@ public class HostServer {
 
      do
      {
+         // sit here and wait for somebody to connect to get our files
          Socket client = welcomeSocket.accept();
 
+         // someone connected!
          System.out.println("\nNew transfer request accepted.\n");
 
          /* spin off new thread to handle all future communication with client */
@@ -67,18 +69,22 @@ public class HostServer {
 
     public void run()
     {
-           received = input.nextLine();  //this line blocks until message is received
+          /* received = input.nextLine();  //this line blocks until message is received
            StringTokenizer tokens = new StringTokenizer(received);
-           command = tokens.nextToken();
+           command = tokens.nextToken(); */
 
            do{
+
+             received = input.nextLine();  //this line blocks until message is received
+             StringTokenizer tokens = new StringTokenizer(received);
+             command = tokens.nextToken();
+             // get is really the only command the server ever handles
            if(command.equals("GET"))
             {
-                /* will be of the form RETR <filename> <port> */
-                /* send <filename> to client address at <port> */
-
+                // get the name of the file the person connecting wants
                 String fileName = tokens.nextToken();
 
+                // get the data port
                 try {
                     dataConnPort = Integer.parseInt(tokens.nextToken());
                 } catch (NumberFormatException e1) {
@@ -94,6 +100,8 @@ public class HostServer {
                     output.println(fileName + " cound not be found. Please specify a different file.");
                     continue;
                 }
+
+                // essentially from here on our, do the server portion of the RETR code from the first project
 
                 byte[] bytes = new byte[16 * 1024];
                 InputStream fileIn = null;
@@ -119,8 +127,9 @@ public class HostServer {
                     dataOutput.close();
                     fileIn.close();
                     dataSocket.close();
-					
-					command = "";
+
+                    // set command to an empty string so that when we loop around we don't enter
+					          command = "";
 
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
