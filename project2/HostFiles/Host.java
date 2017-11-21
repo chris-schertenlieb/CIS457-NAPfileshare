@@ -11,30 +11,40 @@ public class Host {
     private static InetAddress host;
     private static final int PORT = 1236;
 
-    public static void main(String[] args)
-    {
-        Socket server = null;
-        String message, command, response, targetUser = "";
-        String serverName = "";
-        int serverPort;
-
-        Scanner serverInput = null;
+    private Socket server = null;
+    private String message, command, targetUser = "";
+    private String serverName = "";
+    private int serverPort;
+    private ArrayList<String> response;
+//    public static void main(String[] args)
+//    {
+//        
+//        
+//
+//    }
+    
+    public void setCommand(String a){
+    	this.message = a;
+    }
+    
+    
+    public ArrayList<String> getResponse(){
+    	
+    	Scanner serverInput = null;
         PrintWriter serverOutput = null;
-        ArrayList<String> latestSearch = new ArrayList();
+        response = new ArrayList();
 
         //Set up stream for keyboard entry...
-        Scanner userEntry = new Scanner(System.in);
+//        Scanner userEntry = new Scanner(System.in);
 
         /* currently, I'm enclosing everything in a giant try block
          * This should be divided into smaller blocks for better error handling */
         try {
-            do
-            {
                 /* display normal prompt preceeding every user entry */
-                System.out.print("Enter command ('QUIT' to exit): ");
-
-                /* get user input and tokenize to get command */
-                message =  userEntry.nextLine();
+//                System.out.print("Enter command ('QUIT' to exit): ");
+//
+//                /* get user input and tokenize to get command */
+//                message =  userEntry.nextLine();
                 StringTokenizer tokens = new StringTokenizer(message);
                 command = tokens.nextToken();
 
@@ -44,103 +54,103 @@ public class Host {
                     /* check that no connection already exists with a server */
                     if (server != null)
                     {
-                        System.out.println("A connection with server " + serverName + " has already been established.");
-                        continue;
+                    	response.add("Connection already exablished")
                     }
 
-                    /*check for correct parameters
-                     * must be in the form CONNECT servername/IP port */
-                    serverName = tokens.nextToken();
-                    serverPort = Integer.parseInt(tokens.nextToken());
-                    server = new Socket(serverName, serverPort);
-
-                    /* get input stream from server to receive response */
-                    /* get output stream from server to send request */
-                    serverInput = new Scanner(server.getInputStream());
-                    serverOutput = new PrintWriter(server.getOutputStream(),true);
-
-                    System.out.println("Connection with " + serverName + " has been established.");
-                    continue;  //repeat while loop
+                    else{
+	                    /*check for correct parameters
+	                     * must be in the form CONNECT servername/IP port */
+	                    serverName = tokens.nextToken();
+	                    serverPort = Integer.parseInt(tokens.nextToken());
+	                    server = new Socket(serverName, serverPort);
+	
+	                    /* get input stream from server to receive response */
+	                    /* get output stream from server to send request */
+	                    serverInput = new Scanner(server.getInputStream());
+	                    serverOutput = new PrintWriter(server.getOutputStream(),true);
+	
+	                    response.add("Connection with " + serverName + " has been established.");
+                    }
                 }
 
-                if(command.equals("REGISTER"))
+                else if(command.equals("REGISTER"))
                 {
                     /* Command should be in the form REGISTER username hostname connectionSpeed */
 
                     /* check that a connection with a server exists */
                     if (server == null)
                     {
-                        System.out.println("A connection with a server has not been established.");
-                        continue;
+                        response.add("A connection with a server has not been established.");
                     }
+                    else{
 
                     /* pull values from command line */
-                    String username = tokens.nextToken();
-                    String hostname = tokens.nextToken();
-                    String connectionSpeed = tokens.nextToken();
-
-                    /* send command to central server */
-                    serverOutput.println("REGISTER " + username + " " + hostname + " " + connectionSpeed);
-
-                    /* get input stream to read response to the data socket */
-                    response = serverInput.nextLine();
-
-                    System.out.println(response);
-
-                    /* TODO: Check for success/failure in response ? */
-
-                    /* send STOR command in the form STOR portNum */
-                    serverOutput.println("STOR " + PORT);
-
-                    //set up data socket with server
-                    ServerSocket welcomeSocket = new ServerSocket(PORT);
-                    Socket dataSocket = welcomeSocket.accept();
-
-                    try {
-                        ObjectOutputStream outputStream = new ObjectOutputStream(dataSocket.getOutputStream());
-
-                        /* get list of all files in current directory */
-                        File folder = new File(".");  //the folder for this process
-                        File[] listOfFiles = folder.listFiles();  //this object contains all files AND folders in the current directory
-
-                        ArrayList<String> results = new ArrayList<String>();
-
-                        /* Iterate through and add the path to the list only if the file object is indeed a file (not a directory) */
-                        for (File file : listOfFiles) {
-                            if (file.isFile()) {
-                                results.add(file.getName());
-                            }
-                        }
-
-                        outputStream.writeObject(results);
-
-                        dataSocket.close();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
+	                    String username = tokens.nextToken();
+	                    String hostname = tokens.nextToken();
+	                    String connectionSpeed = tokens.nextToken();
+	
+	                    /* send command to central server */
+	                    serverOutput.println("REGISTER " + username + " " + hostname + " " + connectionSpeed);
+	
+	                    /* get input stream to read response to the data socket */
+	                    response.add(serverInput.nextLine());
+	
+	
+	                    /* TODO: Check for success/failure in response ? */
+	
+	                    /* send STOR command in the form STOR portNum */
+	                    serverOutput.println("STOR " + PORT);
+	
+	                    //set up data socket with server
+	                    ServerSocket welcomeSocket = new ServerSocket(PORT);
+	                    Socket dataSocket = welcomeSocket.accept();
+	
+	                    try {
+	                        ObjectOutputStream outputStream = new ObjectOutputStream(dataSocket.getOutputStream());
+	
+	                        /* get list of all files in current directory */
+	                        File folder = new File(".");  //the folder for this process
+	                        File[] listOfFiles = folder.listFiles();  //this object contains all files AND folders in the current directory
+	
+	                        ArrayList<String> results = new ArrayList<String>();
+	
+	                        /* Iterate through and add the path to the list only if the file object is indeed a file (not a directory) */
+	                        for (File file : listOfFiles) {
+	                            if (file.isFile()) {
+	                                results.add(file.getName());
+	                            }
+	                        }
+	
+	                        outputStream.writeObject(results);
+	
+	                        dataSocket.close();
+	
+	                    } catch (IOException e) {
+	                        e.printStackTrace();
+	                    }
+	
+	                    /* get success/failure message */
+	                    response.add(serverInput.nextLine());
+	
+						dataSocket.close();
+						welcomeSocket.close();
                     }
-
-                    /* get success/failure message */
-                    response = serverInput.nextLine();
-
-                    System.out.println(response);
-
-					dataSocket.close();
-					welcomeSocket.close();
                 }
 
                 /* done in the form UNREGISTER <username> */
-                if(command.equals("UNREGISTER"))
+                else if(command.equals("UNREGISTER"))
                 {
                     // get the username passed
                     String username = tokens.nextToken();
 
                     // ask the server to unregister this username
-					          serverOutput.println("UNREGISTER " + username);
+					serverOutput.println("UNREGISTER " + username);
+					
+					response.add("Unregistered username: " + username);
                 }
 
                 /* done in the form SEARCH <keyword> */
-                if(command.equals("SEARCH"))
+                else if(command.equals("SEARCH"))
                 {
                     // get the keyword passed
                     String keyword = tokens.nextToken();
@@ -155,23 +165,22 @@ public class Host {
                     // make an object stream that will receive the arraylist of results the server gives us
           					ObjectInputStream input = new ObjectInputStream(dataSocket.getInputStream());
           					try{
-                      System.out.print("\n");
+//                      System.out.print("\n");
                       // read in the results of the search
           						ArrayList<String> results = (ArrayList<String>)input.readObject();
                       // update our global search variable
-                      latestSearch = results;
+          						latestSearch = results;
                       // numbering integer helps us format the output
-                      int numbering = 0;
+          						int numbering = 0;
                       // print out all our results and stuff
-                      System.out.println(results.size() + " results found: ");
+          						System.out.println(results.size() + " results found: ");
           						for(int i=0; i<results.size(); i++){
-                        numbering=i+1;
-                        System.out.println(numbering + results.get(i));
-                      }
+          								response.add((i+1) + ": " + results[i]);
+          						}
           					}catch(Exception e){
-          						System.out.println("Unable to read search results!");
+          						response.add("Error when finding results!");
           					}
-                    System.out.print("\n");
+//                    System.out.print("\n");
                     input.close();
                     dataSocket.close();
                     welcomeSocket.close();
@@ -181,10 +190,10 @@ public class Host {
                    where the integer is the number from the previous search.
                    i.e. GET 1 would get the first result from the most recent search
                 */
-                if(command.equals("GET")){
+                else if(command.equals("GET")){
                   // check that we have done at least one search before
                   if(latestSearch.isEmpty()){
-                    System.out.println("No search results found");
+                    response.add("No previous search found!");
                     continue;
                   }
                   // get the number the client wants
@@ -242,19 +251,22 @@ public class Host {
                   dataSocket.close();
                   welcomeSocket.close();
 
-                  System.out.println("File Saved!");
+                  response.add("File Saved!");
                 }
-
-            }while (!command.equals("QUIT"));
-
+                else if(command.equals("QUIT")){
             /* tell the server that you are quitting */
-            serverOutput.println("QUIT");
-
-            /* close connection and resources */
-            server.close();
-            userEntry.close();
-            serverOutput.close();
-            serverInput.close();
+		            serverOutput.println("QUIT");
+		
+		            /* close connection and resources */
+		            server.close();
+		            userEntry.close();
+		            serverOutput.close();
+		            serverInput.close();
+                }
+                
+                else{
+                	response.add("Not a valid command");
+                }
         } catch (NumberFormatException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -265,7 +277,8 @@ public class Host {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        
+        return response;
     }
 
 }
