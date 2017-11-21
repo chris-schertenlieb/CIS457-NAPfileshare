@@ -151,7 +151,7 @@ class ClientHandler extends Thread
                     {
                         TextDatabase.insertRowIntoFiles(username, file, TextDatabase.getUserServer(username));
                     }
-                    System.out.println("File list uploaded...")
+                    System.out.println("File list uploaded...");
 
                     dataSocket.close();
                 }
@@ -173,7 +173,7 @@ class ClientHandler extends Thread
                  *  We'd need to force a login
                  *  or pair IP addresses with usernames
                  *  to keep this safe from malicious users */
-                 System.out.println("Unregistering client...")
+                 System.out.println("Unregistering client...");
 
                 String username = tokens.nextToken();
 
