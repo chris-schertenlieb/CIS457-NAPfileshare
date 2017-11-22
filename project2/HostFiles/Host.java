@@ -159,14 +159,17 @@ public class Host {
                   numbering = 0;
                   // print out all our results and stuff
                   response.add(results.size() + " results found: ");
-                            for(int i=0; i<results.size(); i++){
+                  String[] resArr = new String[4];
+                  for(int i=0; i<results.size(); i++){
+                    resArr = results.get(i).split(",");
+                    String newStr = resArr[0] + "\t\t" + resArr[1];
                     numbering=i+1;
-                    response.add(numbering + results.get(i));
+                    response.add(numbering + ".\t" + newStr);
                   }
-                        }catch(Exception e){
-                            response.add("Unable to read search results!");
-                            return;
-                        }
+                }catch(Exception e){
+                    response.add("Unable to read search results!");
+                    return;
+                }
                 input.close();
                 dataSocket.close();
                 welcomeSocket.close();
@@ -208,11 +211,10 @@ public class Host {
 
               /* get input stream from server to receive response */
               /* get output stream from server to send request */
-              serverInput = new Scanner(connSocket.getInputStream());
-              serverOutput = new PrintWriter(connSocket.getOutputStream(),true);
+              PrintWriter newServerOutput = new PrintWriter(connSocket.getOutputStream(),true);
 
               // tell the server that we want to get a file, and give it the filename
-              serverOutput.println("GET " + searchCreds[1] + " " + PORT);
+              newServerOutput.println("GET " + searchCreds[1] + " " + PORT);
 
               // set up the data socket with the server that has the file we want
               ServerSocket welcomeSocket = new ServerSocket(PORT);
@@ -263,6 +265,7 @@ public class Host {
 
         /* close connection and resources */
         server.close();
+        server = null;
         serverOutput.close();
         serverInput.close();
     }
@@ -475,11 +478,10 @@ public class Host {
 
                   /* get input stream from server to receive response */
                   /* get output stream from server to send request */
-                  serverInput = new Scanner(connSocket.getInputStream());
-                  serverOutput = new PrintWriter(connSocket.getOutputStream(),true);
+                  PrintWriter newServerOutput = new PrintWriter(connSocket.getOutputStream(),true);
 
                   // tell the server that we want to get a file, and give it the filename
-                  serverOutput.println("GET " + searchCreds[1] + " " + PORT);
+                  newServerOutput.println("GET " + searchCreds[1] + " " + PORT);
 
                   // set up the data socket with the server that has the file we want
                   ServerSocket welcomeSocket = new ServerSocket(PORT);
